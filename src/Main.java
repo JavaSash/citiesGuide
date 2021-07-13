@@ -11,24 +11,31 @@ public class Main {
         System.out.println(createCities(readFile(PATH)));
     }
 
-    private static List<String> readFile(String path) {
-        List<String> cities = new ArrayList<>();
-        try (Scanner sc = new Scanner(new File(path))) {
-            sc.useDelimiter(";|\r");
-            while (sc.hasNext()) {
-                cities.add(sc.next());
+    private static List<City> createCities(List<String> rawCities) {
+        List<City> cities = new ArrayList<>();
+        for (String cityStr : rawCities) {
+            String[] cityParams = cityStr.split(";");
+            if (cityParams.length == 6) {
+                cities.add(new City(cityParams[1], cityParams[2], cityParams[3], Integer.parseInt(cityParams[4]), cityParams[5]));
+            } else {
+                cities.add(new City(cityParams[1], cityParams[2], cityParams[3], Integer.parseInt(cityParams[4])));
             }
-        } catch (IOException e) {
-            e.getMessage();
         }
         return cities;
     }
 
-    private static List<City> createCities(List<String> citiesStr) {
-        List<City> cities = new ArrayList<>();
-        for (int i = 0; i < citiesStr.size(); i += 6) {
-            cities.add(new City(citiesStr.get(i + 1), citiesStr.get(i + 2), citiesStr.get(i + 3), citiesStr.get(i + 4), citiesStr.get(i + 5)));
+    private static List<String> readFile(String path) {
+        List<String> rawCities = new ArrayList<>();
+        try (Scanner sc = new Scanner(new File(path))) {
+            sc.useDelimiter("\r");
+            while (sc.hasNext()) {
+                rawCities.add(sc.next());
+            }
+        } catch (IOException e) {
+            e.getMessage();
         }
-        return cities;
+        return rawCities;
     }
+
+
 }
