@@ -1,0 +1,11 @@
+.idea
+out
+*.iml
+log
+*.xml
+*.ini
+*.tmp
+*.doc
+*.docx
+
+
