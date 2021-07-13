@@ -7,5 +7,7 @@ log
 *.tmp
 *.doc
 *.docx
+*.zip
+*.rar
 
 

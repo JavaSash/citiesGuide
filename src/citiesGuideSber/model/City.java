@@ -1,26 +1,28 @@
+package citiesGuideSber.model;
+
 import java.util.Objects;
 
 public class City {
+    // Наименование города
     private String name;
+    // Регион
     private String region;
+    // Федеральный округ
     private String district;
+    // Население
     private int population;
+    // Дата основания или первое упоминание
     private String foundation;
 
     public City(String name, String region, String district, int population, String foundation) {
         Objects.requireNonNull(name, "Name of city must not be null");
         Objects.requireNonNull(region, "Region of city must not be null");
         Objects.requireNonNull(district, "District of city must not be null");
-        Objects.requireNonNull(population, "Population of city must not be null");
         this.name = name;
         this.region = region;
         this.district = district;
         this.population = population;
         this.foundation = foundation;
-    }
-
-    public City(String name, String region, String district, int population) {
-        this(name, region, district, population, "");
     }
 
     @Override
