@@ -40,15 +40,23 @@ public class CityUtils {
         return new City(name, region, district, population, foundation);
     }
 
-    //Сортировка по названию города
-    public static List<City> sortByName(List<City> cities) {
-        cities.sort(Comparator.comparing(City::getName));
-        return cities;
+    //Сортировка по названию города через компаратор без учёта регистра
+    public static void sortByNameComparator(List<City> cities) {
+        cities.sort(new Comparator<>() {
+            @Override
+            public int compare(City o1, City o2) {
+                return o1.getName().compareToIgnoreCase(o2.getName());
+            }
+        });
     }
 
-    //Сортировка по федеральному округу
-    public static List<City> sortByDistrict(List<City> cities) {
+    //Сортировка по названию города через лямбда без учёта регистра
+    public static void sortByNameLambda(List<City> cities) {
+        cities.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+    }
+
+    //Сортировка по федеральному округу через компаратор с учётом регистра
+    public static void sortByDistrictAndNameComparator(List<City> cities) {
         cities.sort(Comparator.comparing(City::getDistrict).thenComparing(City::getName));
-        return cities;
     }
 }
