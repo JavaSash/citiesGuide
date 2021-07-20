@@ -59,4 +59,19 @@ public class CityUtils {
     public static void sortByDistrictAndNameComparator(List<City> cities) {
         cities.sort(Comparator.comparing(City::getDistrict).thenComparing(City::getName));
     }
+
+    //Поиск индекса города с наибольшим населением
+    public static String findMaxPopultion(List<City> cities) {
+        City[] citiesArray = cities.toArray(new City[0]);
+        int index = 0;
+        int maxPopulation = 0;
+        for (int i = 0; i < citiesArray.length - 1; i++) {
+            if (citiesArray[i].getPopulation() < citiesArray[i + 1].getPopulation()) {
+                index = i + 1;
+                maxPopulation = citiesArray[i + 1].getPopulation();
+            }
+        }
+
+        return "[" + index + "] = " + maxPopulation;
+    }
 }

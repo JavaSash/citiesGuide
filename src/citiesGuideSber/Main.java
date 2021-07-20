@@ -19,5 +19,7 @@ public class Main {
 
         sortByDistrictAndNameComparator(cities);
         System.out.println("\n\n\n***ПОСЛЕ СОРТИРОВКИ ПО ФО И ИМЕНИ***\n\n" + cities);
+
+        System.out.println("\n\n\n***ГОРОД С САМЫМ БОЛЬШИМ НАСЕЛЕНИЕМ***\n\n" + findMaxPopultion(cities));
     }
 }
