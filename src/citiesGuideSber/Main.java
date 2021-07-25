@@ -1,4 +1,5 @@
 package citiesGuideSber;
+
 import citiesGuideSber.model.City;
 
 import java.util.List;
@@ -20,6 +21,9 @@ public class Main {
         sortByDistrictAndNameComparator(cities);
         System.out.println("\n\n\n***ПОСЛЕ СОРТИРОВКИ ПО ФО И ИМЕНИ***\n\n" + cities);
 
-        System.out.println("\n\n\n***ГОРОД С САМЫМ БОЛЬШИМ НАСЕЛЕНИЕМ***\n\n" + findMaxPopultion(cities));
+        System.out.println("\n\n\n***ГОРОД С САМЫМ БОЛЬШИМ НАСЕЛЕНИЕМ (перебором)***\n\n" + findBySimpleBruteForce(cities));
+        System.out.println("\n\n\n***ГОРОД С САМЫМ БОЛЬШИМ НАСЕЛЕНИЕМ (вставками)***\n\n" + findByInsertionSort(cities));
+        System.out.println("\n\n\n***ГОРОД С САМЫМ БОЛЬШИМ НАСЕЛЕНИЕМ (лямбда)***");
+        findMaxPopulation(cities);
     }
 }

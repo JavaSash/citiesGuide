@@ -4,6 +4,7 @@ import citiesGuideSber.model.City;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.*;
 
 public class CityUtils {
@@ -60,18 +61,38 @@ public class CityUtils {
         cities.sort(Comparator.comparing(City::getDistrict).thenComparing(City::getName));
     }
 
-    //Поиск индекса города с наибольшим населением
-    public static String findMaxPopultion(List<City> cities) {
+    //Поиск города с наибольшим населением путём простого перебора
+    public static String findBySimpleBruteForce(List<City> cities) {
         City[] citiesArray = cities.toArray(new City[0]);
+        City maxPopulation = citiesArray[0];
         int index = 0;
-        int maxPopulation = 0;
+
         for (int i = 0; i < citiesArray.length - 1; i++) {
-            if (citiesArray[i].getPopulation() < citiesArray[i + 1].getPopulation()) {
-                index = i + 1;
-                maxPopulation = citiesArray[i + 1].getPopulation();
+            if (citiesArray[i].getPopulation() > maxPopulation.getPopulation()) {
+                maxPopulation = citiesArray[i];
+                index = i;
             }
         }
+        return MessageFormat.format("[{0}] = {1}", index, citiesArray[index].getPopulation());
+    }
 
-        return "[" + index + "] = " + maxPopulation;
+    //Поиск города с наибольшим количеством жителей путем сортировки вставками
+    public static String findByInsertionSort(List<City> cities) {
+        City[] citiesArray = cities.toArray(new City[0]);
+
+        for (int i = 1; i < citiesArray.length; i++) {
+            City current = citiesArray[i];
+            int j = i - 1;
+            while (j >= 0 && current.getPopulation() < citiesArray[j].getPopulation()) {
+                citiesArray[j + 1] = citiesArray[j];
+                j--;
+            }
+        }
+        return MessageFormat.format("[{0}] = {1}", citiesArray.length - 1, citiesArray[citiesArray.length - 1].getPopulation());
+    }
+
+//    Поиск города с наибольшим количеством жителей через lambda
+    public static void findMaxPopulation(List<City> cities) {
+        System.out.println(cities.stream().max(Comparator.comparing(City::getPopulation)));
     }
 }
