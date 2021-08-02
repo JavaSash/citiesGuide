@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CityUtils {
     //Загрузка данных о городах в массив
@@ -91,8 +92,35 @@ public class CityUtils {
         return MessageFormat.format("[{0}] = {1}", citiesArray.length - 1, citiesArray[citiesArray.length - 1].getPopulation());
     }
 
-//    Поиск города с наибольшим количеством жителей через lambda
+    //Поиск города с наибольшим количеством жителей через lambda
     public static void findMaxPopulation(List<City> cities) {
         System.out.println(cities.stream().max(Comparator.comparing(City::getPopulation)));
+    }
+
+    //Поиск количества городов в регионе
+    public static void numberOfCities(List<City> cities) {
+        sortByDistrictAndNameComparator(cities);
+        City[] citiesArray = cities.toArray(new City[0]);
+        String district = cities.get(0).getDistrict();
+        int number = 1;
+
+        for (int i = 0; i < citiesArray.length - 1; i++) {
+            if (district.equalsIgnoreCase(citiesArray[i + 1].getDistrict())) {
+                number++;
+            } else {
+                System.out.println(district + " - " + number);
+                district = citiesArray[i + 1].getDistrict();
+                number = 1;
+            }
+        }
+        System.out.println(district + " - " + number);
+    }
+
+    //Поиск количества городов в регионе через Stream API
+    public static void numberOfCitiesByStream(List<City> cities) {
+        Map<String, Long> map = cities.stream().collect(
+                Collectors.groupingBy(City::getDistrict, Collectors.counting()));
+
+        System.out.println(map);
     }
 }
