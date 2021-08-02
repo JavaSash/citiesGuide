@@ -99,21 +99,17 @@ public class CityUtils {
 
     //Поиск количества городов в регионе
     public static void numberOfCities(List<City> cities) {
-        sortByDistrictAndNameComparator(cities);
-        City[] citiesArray = cities.toArray(new City[0]);
-        String district = cities.get(0).getDistrict();
-        int number = 1;
-
-        for (int i = 0; i < citiesArray.length - 1; i++) {
-            if (district.equalsIgnoreCase(citiesArray[i + 1].getDistrict())) {
-                number++;
+        Map<String, Integer> regions = new HashMap<>();
+        for (City city : cities) {
+            if (!regions.containsKey(city.getDistrict())) {
+                regions.put(city.getDistrict(), 1);
             } else {
-                System.out.println(district + " - " + number);
-                district = citiesArray[i + 1].getDistrict();
-                number = 1;
+                regions.put(city.getDistrict(), regions.get(city.getDistrict()) + 1);
             }
         }
-        System.out.println(district + " - " + number);
+        for (String key : regions.keySet()) {
+            System.out.println(MessageFormat.format(" {0} = {1}", key, regions.get(key)));
+        }
     }
 
     //Поиск количества городов в регионе через Stream API
