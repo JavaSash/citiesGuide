@@ -101,10 +101,10 @@ public class CityUtils {
     public static void numberOfCities(List<City> cities) {
         Map<String, Integer> regions = new HashMap<>();
         for (City city : cities) {
-            if (!regions.containsKey(city.getDistrict())) {
-                regions.put(city.getDistrict(), 1);
+            if (!regions.containsKey(city.getRegion())) {
+                regions.put(city.getRegion(), 1);
             } else {
-                regions.put(city.getDistrict(), regions.get(city.getDistrict()) + 1);
+                regions.put(city.getRegion(), regions.get(city.getRegion()) + 1);
             }
         }
         for (String key : regions.keySet()) {
@@ -114,8 +114,8 @@ public class CityUtils {
 
     //Поиск количества городов в регионе через Stream API
     public static void numberOfCitiesByStream(List<City> cities) {
-        Map<String, Long> regions = cities.stream().
-                collect(Collectors.groupingBy(City::getDistrict, Collectors.counting()));
+        Map<String, Long> regions = cities.stream()
+                .collect(Collectors.groupingBy(City::getRegion, Collectors.counting()));
         regions.forEach((k, v) -> System.out.println(MessageFormat.format(" {0} = {1}", k, v)));
     }
 }

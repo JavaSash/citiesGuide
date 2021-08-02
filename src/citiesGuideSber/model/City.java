@@ -37,6 +37,10 @@ public class City {
         return population;
     }
 
+    public String getRegion() {
+        return region;
+    }
+
     @Override
     public String toString() {
         return "\rCity{name='" + name +
