@@ -114,9 +114,8 @@ public class CityUtils {
 
     //Поиск количества городов в регионе через Stream API
     public static void numberOfCitiesByStream(List<City> cities) {
-        Map<String, Long> map = cities.stream().collect(
-                Collectors.groupingBy(City::getDistrict, Collectors.counting()));
-
-        System.out.println(map);
+        Map<String, Long> regions = cities.stream().
+                collect(Collectors.groupingBy(City::getDistrict, Collectors.counting()));
+        regions.forEach((k, v) -> System.out.println(MessageFormat.format(" {0} = {1}", k, v)));
     }
 }
