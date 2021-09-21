@@ -1,5 +1,6 @@
 package citiesGuideSber.model;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 
 public class City {
